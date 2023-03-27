@@ -1,7 +1,9 @@
 package com.android.randomuser.data.source
 
-import com.android.randomuser.network.models.User
+import com.android.randomuser.data.User
+import kotlinx.coroutines.flow.Flow
 
 interface UsersDataSource {
-    suspend fun getUsers(usersCount: Int): com.android.randomuser.data.Result<List<User>>
+    suspend fun fetchUsers(userCount: Int): Result<List<User>>
+    fun observeHistory(): Flow<List<User>>
 }

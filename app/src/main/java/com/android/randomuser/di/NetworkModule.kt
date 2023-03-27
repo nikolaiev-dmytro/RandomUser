@@ -12,8 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object UsersModule {
-
+class NetworkModule {
     @Singleton
     @Provides
     fun provideRandomUserHttpClient(): OkHttpClient {
@@ -37,6 +36,4 @@ object UsersModule {
             .build()
             .create(RandomUserService::class.java)
     }
-
-
 }

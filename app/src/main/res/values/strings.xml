@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Random User</string>
+    <string name="tabUsersTitle">Users</string>
+    <string name="tabHistoryTitle">History</string>
+    <string name="load_users">Load users</string>
+    <string name="user_count_hint">Enter users count to load</string>
 </resources>

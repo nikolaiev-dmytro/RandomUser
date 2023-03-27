@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottomNavigationHeight">64dp</dimen>
+    <dimen name="defaultMargin">10dp</dimen>
+    <dimen name="doubleMargin">20dp</dimen>
+    <dimen name="userListDividerHeight">1dp</dimen>
+    <dimen name="userListImageSize">60dp</dimen>
+</resources>

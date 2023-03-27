@@ -1,10 +1,9 @@
 package com.android.randomuser.data
 
-import androidx.lifecycle.LiveData
-import com.android.randomuser.network.models.User
+import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository {
-    fun fetchUsers(usersCount: Int)
-    fun observeUsers(): LiveData<List<User>>
-    fun getUser(userId: String): Result<User>
+    suspend fun fetchUsers(usersCount: Int)
+    fun observeUsers(): Flow<Result<List<User>>>
+    fun observeHistory(): Flow<List<User>>
 }
