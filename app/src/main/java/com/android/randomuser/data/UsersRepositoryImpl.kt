@@ -2,6 +2,7 @@ package com.android.randomuser.data
 
 import com.android.randomuser.data.source.UsersDataSource
 import com.android.randomuser.di.DataSourceModule
+import com.android.randomuser.utils.NoUserFoundError
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,5 +25,12 @@ class UsersRepositoryImpl @Inject constructor(
 
     override fun observeHistory(): Flow<List<User>> {
         return localUsersDataSource.observeHistory()
+    }
+
+    override suspend fun getUser(userId: String): Result<User> {
+        val predicate: (User) -> Boolean = { it.userId == userId }
+        val user = (localUsersDataSource.getUsers().find(predicate)
+            ?: remoteUsersDataSource.getUsers().find(predicate))
+        return user?.let { Result.success(it) } ?: Result.failure(NoUserFoundError())
     }
 }

@@ -9,7 +9,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UsersDao {
     @Query("SELECT * FROM user")
-    fun getUsers(): Flow<List<DbUser>>
+    fun getUsersFlow(): Flow<List<DbUser>>
+
+    @Query("SELECT * FROM user")
+    suspend fun getUsers(): List<DbUser>
 
     @Insert
     suspend fun insertAll(users: List<DbUser>)

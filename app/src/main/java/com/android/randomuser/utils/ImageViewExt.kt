@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("app:imageUrl")
-fun ImageView.loadImageUrl(url: String) {
+fun ImageView.loadImageUrl(url: String?) {
     Glide.with(this)
         .load(url)
         .thumbnail(0.1f)

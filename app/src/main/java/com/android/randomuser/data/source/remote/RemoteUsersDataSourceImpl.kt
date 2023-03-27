@@ -8,6 +8,7 @@ import com.android.randomuser.utils.InternetConnectionError
 import com.android.randomuser.utils.toGender
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
@@ -20,9 +21,13 @@ import javax.inject.Singleton
 @ActivityRetainedScoped
 class RemoteUsersDataSourceImpl @Inject constructor(private val usersService: RandomUserService) :
     UsersDataSource {
+    private val users = MutableStateFlow<List<User>>(emptyList())
+
     override suspend fun fetchUsers(userCount: Int): Result<List<User>> {
         return try {
-            Result.success(usersService.getUsers(userCount).results.map { User.fromNetworkUser(it) })
+            val userList = usersService.getUsers(userCount).results.map { User.fromNetworkUser(it) }
+            users.emit(userList)
+            Result.success(userList)
         } catch (e: Throwable) {
             when (e) {
                 is HttpException -> {
@@ -39,6 +44,10 @@ class RemoteUsersDataSourceImpl @Inject constructor(private val usersService: Ra
                 }
             }
         }
+    }
+
+    override suspend fun getUsers(): List<User> {
+        return users.value
     }
 
     override fun observeHistory(): Flow<List<User>> {

@@ -1,53 +1,30 @@
 package com.android.randomuser.ui.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.android.randomuser.R
+import com.android.randomuser.ui.user_details.UserDetailsFragmentArgs
 import com.android.randomuser.ui.user_list.UserListAdapter
 import com.android.randomuser.ui.user_list.UserListItem
 import com.android.randomuser.ui.user_list.UserListViewModel
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.launch
 
-abstract class BaseUsersFragment<T : ViewDataBinding> : Fragment() {
-    private var _binding: T? = null
-    val binding get() = _binding!!
+abstract class BaseUsersFragment<T : ViewDataBinding> : BaseFragment<T>() {
+
     protected val viewModel by activityViewModels<UserListViewModel>()
     protected val adapter by lazy { UserListAdapter(::onUserClicked) }
 
-    abstract fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?): T
-
     abstract fun getUsersRecyclerView(): RecyclerView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = inflateBinding(inflater, container)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initUI()
-        initObservers()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    protected open fun initUI() {
+    override fun initUI() {
+        super.initUI()
         getUsersRecyclerView().adapter = adapter
         getUsersRecyclerView().addItemDecoration(
             MaterialDividerItemDecoration(
@@ -61,7 +38,8 @@ abstract class BaseUsersFragment<T : ViewDataBinding> : Fragment() {
             })
     }
 
-    protected open fun initObservers() {
+    override fun initObservers() {
+        super.initObservers()
         lifecycleScope.launch {
             viewModel.observeErrors().collect {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
@@ -69,5 +47,10 @@ abstract class BaseUsersFragment<T : ViewDataBinding> : Fragment() {
         }
     }
 
-    private fun onUserClicked(userListItem: UserListItem) {}
+    private fun onUserClicked(userListItem: UserListItem) {
+        findNavController().navigate(
+            R.id.userDetails,
+            UserDetailsFragmentArgs.Builder(userListItem.userId).build().toBundle()
+        )
+    }
 }
