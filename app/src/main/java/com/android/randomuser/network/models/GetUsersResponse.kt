@@ -9,7 +9,6 @@ data class User(
     val name: Name = Name(),
     val login: Login = Login(),
     val location: Location = Location(),
-    val dob: DateOfBirth = DateOfBirth(),
     val phone: String = "",
     val picture: Picture = Picture()
 )
@@ -25,34 +24,9 @@ data class Name(
     val last: String = "",
 )
 
-data class Street(
-    val number: Int = 0,
-    val name: String = ""
-)
-
-data class Coordinates(
-    val latitude: String = "",
-    val longitude: String = ""
-)
-
-data class TimeZone(
-    val offset: String = "",
-    val description: String = ""
-)
-
 data class Location(
     val city: String = "",
-    val state: String = "",
     val country: String = "",
-    val postcode: Int = 0,
-    val street: Street = Street(),
-    val coordinates: Coordinates = Coordinates(),
-    val timeZone: TimeZone = TimeZone(),
-)
-
-data class DateOfBirth(
-    val date: String = "",
-    val age: Int = 0
 )
 
 data class Picture(

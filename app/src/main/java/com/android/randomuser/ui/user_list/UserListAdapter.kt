@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.android.randomuser.databinding.ItemUserListBinding
 
-class UserListAdapter : ListAdapter<UserListItem, UserListViewHolder>(UserListDiffer()) {
+class UserListAdapter(private val onItemClicked: (UserListItem) -> Unit) :
+    ListAdapter<UserListItem, UserListViewHolder>(UserListDiffer()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return UserListViewHolder(ItemUserListBinding.inflate(inflater, parent, false))
+        return UserListViewHolder(
+            ItemUserListBinding.inflate(inflater, parent, false),
+            onItemClicked
+        )
     }
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
@@ -30,10 +34,14 @@ class UserListDiffer : DiffUtil.ItemCallback<UserListItem>() {
 
 }
 
-class UserListViewHolder(private val binding: ItemUserListBinding) :
+class UserListViewHolder(
+    private val binding: ItemUserListBinding,
+    private val onItemClicked: (UserListItem) -> Unit
+) :
     ViewHolder(binding.root) {
     fun bind(user: UserListItem) {
         binding.user = user
         binding.executePendingBindings()
+        binding.root.setOnClickListener { onItemClicked(user) }
     }
 }

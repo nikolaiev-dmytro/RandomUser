@@ -12,6 +12,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/user_count_hint"
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLines="1"
             android:textColor="@color/mainText"
@@ -32,12 +33,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsersList"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/rvUsersList"
-            android:clipToPadding="false"
             android:orientation="vertical"
-            android:padding="@dimen/defaultMargin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -17,6 +18,7 @@ class NetworkModule {
     @Provides
     fun provideRandomUserHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .addInterceptor {
                 val newUrl =
                     it.request().url.newBuilder().addQueryParameter("format", "pretty").build()

@@ -1,6 +1,25 @@
 package com.android.randomuser.ui.history
 
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import com.android.randomuser.databinding.FragmentHistoryBinding
+import com.android.randomuser.ui.base.BaseUsersFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : BaseUsersFragment<FragmentHistoryBinding>() {
+    override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentHistoryBinding.inflate(inflater, container, false)
+
+    override fun getUsersRecyclerView() = binding.rvHistory
+
+    override fun initObservers() {
+        super.initObservers()
+        lifecycleScope.launch {
+            viewModel.observeHistory().collectLatest {
+                adapter.submitList(it)
+            }
+        }
+    }
 }

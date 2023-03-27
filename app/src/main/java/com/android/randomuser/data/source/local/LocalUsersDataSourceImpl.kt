@@ -2,6 +2,7 @@ package com.android.randomuser.data.source.local
 
 import com.android.randomuser.data.User
 import com.android.randomuser.data.source.UsersDataSource
+import com.android.randomuser.db.DbUser
 import com.android.randomuser.db.UsersDao
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
@@ -19,20 +20,10 @@ class LocalUsersDataSourceImpl @Inject constructor(
     }
 
     override fun observeHistory(): Flow<List<User>> {
-        return localUsers.map {
-            it.map { user ->
-                User(
-                    user.userId,
-                    user.firstName,
-                    user.lastName,
-                    user.gender,
-                    user.city,
-                    user.country,
-                    user.phone,
-                    user.smallPicture,
-                    user.largePicture
-                )
-            }
-        }
+        return localUsers.map { it.map { user ->User.fromDbUser(user) } }
+    }
+
+    override suspend fun insertUsers(users: List<User>) {
+        usersDao.insertAll(users.map {it.toDbUser()})
     }
 }
