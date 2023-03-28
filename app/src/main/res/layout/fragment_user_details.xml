@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.android.randomuser.ui.user_details.UserDetails" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/doubleMargin">
+
+            <ImageView
+                android:id="@+id/ivUserImage"
+                android:layout_width="@dimen/userDetailsImageSize"
+                android:layout_height="@dimen/userDetailsImageSize"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{user.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvFirstNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/doubleMargin"
+                android:text="@string/first_name"
+                android:textColor="@color/secondText"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUserImage" />
+
+            <TextView
+                android:id="@+id/tvLastNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:text="@string/last_name"
+                android:textColor="@color/secondText"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFirstNameLabel" />
+
+            <TextView
+                android:id="@+id/tvCityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:text="@string/city"
+                android:textColor="@color/secondText"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLastNameLabel" />
+
+            <TextView
+                android:id="@+id/tvCountryLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:text="@string/country"
+                android:textColor="@color/secondText"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCityLabel" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierLabelsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="end"
+                app:barrierMargin="@dimen/doubleMargin"
+                app:constraint_referenced_ids="tvFirstNameLabel,tvLastNameLabel,tvCityLabel,tvCountryLabel" />
+
+            <TextView
+                android:id="@+id/tvFirstName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end|center_vertical"
+                android:maxLines="1"
+                android:text="@{user.firstName}"
+                android:textColor="@color/mainText"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvFirstNameLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/barrierLabelsEnd"
+                app:layout_constraintTop_toTopOf="@id/tvFirstNameLabel" />
+
+            <TextView
+                android:id="@+id/tvLastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end|center_vertical"
+                android:maxLines="1"
+                android:text="@{user.lastName}"
+                android:textColor="@color/mainText"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvLastNameLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/barrierLabelsEnd"
+                app:layout_constraintTop_toTopOf="@id/tvLastNameLabel" />
+
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end|center_vertical"
+                android:maxLines="1"
+                android:text="@{user.city}"
+                android:textColor="@color/mainText"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvCityLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/barrierLabelsEnd"
+                app:layout_constraintTop_toTopOf="@id/tvCityLabel" />
+
+            <TextView
+                android:id="@+id/tvCountry"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end|center_vertical"
+                android:maxLines="1"
+                android:text="@{user.country}"
+                android:textColor="@color/mainText"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvCountryLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/barrierLabelsEnd"
+                app:layout_constraintTop_toTopOf="@id/tvCountryLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
