@@ -27,8 +27,11 @@
             android:id="@+id/btLoadUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="@{!etUsersCount.text.toString().empty}"
             android:text="@string/load_users"
+            android:textColor="@color/mainText"
             android:textSize="16sp"
+            app:backgroundTint="@color/button_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

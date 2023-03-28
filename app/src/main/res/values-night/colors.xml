@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#A274E3</color>
+    <color name="primaryColorVariant">#B9A3EA</color>
+    <color name="onPrimaryColor">#000000</color>
+    <color name="secondaryColor">#FF03DAC5</color>
+    <color name="secondaryColorVariant">#FF018786</color>
+    <color name="onSecondaryColor">#000000</color>
+    <color name="mainBackground">#05001B</color>
+    <color name="bottomNavigationBackground">#1AFFFFFF</color>
+    <color name="bottomNavigationIcon">@color/mainText</color>
+    <color name="bottomNavigationIconSelected">@color/primaryColor</color>
+    <color name="mainText">#FFFFFF</color>
+    <color name="secondText">#B8B8B8</color>
+    <color name="buttonBackground">#1F4741</color>
+    <color name="buttonBackgroundDisabled">#272727</color>
+</resources>

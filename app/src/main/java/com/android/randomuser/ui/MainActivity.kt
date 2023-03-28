@@ -2,7 +2,10 @@ package com.android.randomuser.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +16,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.randomuser.R
 import com.android.randomuser.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,7 +28,15 @@ class MainActivity : AppCompatActivity() {
     }
     private val topDestinations by lazy { setOf(R.id.users, R.id.history) }
     private val appBarConfiguration by lazy { AppBarConfiguration(topDestinations) }
+    private var keepSplash = true
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { keepSplash }
+        }
+        lifecycleScope.launch {
+            delay(2000)
+            keepSplash = false
+        }
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

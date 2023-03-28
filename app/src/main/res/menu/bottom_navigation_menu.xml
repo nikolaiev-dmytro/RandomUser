@@ -5,10 +5,10 @@
         android:id="@+id/users"
         android:icon="@drawable/ic_tab_users"
         android:title="@string/tabUsersTitle"
-        app:iconTint="@color/mainText" />
+        app:iconTint="@color/bottom_navigation_color" />
     <item
         android:id="@+id/history"
         android:icon="@drawable/ic_tab_history"
         android:title="@string/tabHistoryTitle"
-        app:iconTint="@color/mainText" />
+        app:iconTint="@color/bottom_navigation_color" />
 </menu>
